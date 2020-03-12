@@ -1,4 +1,7 @@
 'use strict';
+
+const { generatePassword } = require('../helpers/generatePassword')
+
 module.exports = (sequelize, DataTypes) => {
 
   class User extends sequelize.Sequelize.Model {
@@ -24,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     hooks: {
       beforeCreate: function (user, option) {
-        // hash password
+        user.password = generatePassword(user.password)
       }
     },
     sequelize,

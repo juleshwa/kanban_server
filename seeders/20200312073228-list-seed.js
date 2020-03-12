@@ -8,7 +8,7 @@ const list = {
 
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.bulkInsert('Lists', list, {});
+    return queryInterface.bulkInsert('Lists', [list], {});
 
   },
   down: (queryInterface, Sequelize) => {
