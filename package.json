@@ -1,7 +1,7 @@
 {
   "name": "kanban_server",
   "version": "1.0.0",
-  "description": "",
+  "description": "Kanban Server",
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -13,7 +13,7 @@
     "url": "git+https://github.com/juleshwa/kanban_server.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Juli Yanti",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/juleshwa/kanban_server/issues"
