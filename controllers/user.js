@@ -11,12 +11,30 @@ class UserController {
             email: req.body.email,
             password: req.body.password
         }
-        User.create(payload).then(result => {
-            const user = {
-                id: result.id,
-                email: result.email
+
+        User.findOne({
+            where: {
+                email: payload.email
             }
-            res.status(201).json(result);
+        }).then(result => {
+
+            if (!result) {
+                return User.create(payload);
+            } else {
+                next({
+                    status: 400,
+                    message: `The user is already registered`
+                })
+            }
+        }).then(created => {
+            if (created) {
+                const user = {
+                    id: created.id,
+                    email: created.email
+                }
+                res.status(201).json(user);
+            }
+
         }).catch(next);
     }
 
@@ -28,7 +46,7 @@ class UserController {
             }
         }).then(user => {
             if (user) {
-                const isCorrect = comparePassword(password);
+                const isCorrect = comparePassword(password, user.password);
                 if (isCorrect) {
                     const payload = {
                         id: user.id,

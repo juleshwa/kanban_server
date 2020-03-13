@@ -1,5 +1,7 @@
 'use strict';
+
 module.exports = (sequelize, DataTypes) => {
+
   class Task extends sequelize.Sequelize.Model {
     static associate(models) {
       // associations can be defined here
@@ -25,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }, {
     sequelize,
-    modelName: Task
+    modelName: 'Task'
   })
 
   return Task;
