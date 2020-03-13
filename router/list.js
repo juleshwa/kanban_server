@@ -8,6 +8,14 @@ const { Authorization } = require('../middlewares/Authorization');
 const { ListController } = require('../controllers/list');
 
 router.use(Authentication.isAuthentic);
+
 router.use('/tasks', taskRouter);
+
+router.get('/', ListController.fetchAll);
+
+router.get('/add', ListController.addCategory);
+router.get('/:ListId', ListController.fetchById)
+
+router.put('/rename', Authorization.isAuthorized, ListController.renameCategory);
 
 module.exports = { listRouter: router }
