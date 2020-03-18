@@ -7,28 +7,36 @@ class Authorization {
         let ListId = +req.params.ListId;
         let TaskId = +req.params.TaskId;
 
+        Task.findOne({
+            where: {
+                id: TaskId,
+                ListId
+            }
+        }).then(task => {
+            if (task) {
+                if (task.UserId === req.loginId) {
+                    next()
+                } else {
+                    next({
+                        status: 401,
+                        message: `You are not authorized`
+                    })
+                }
+            } else {
+                next({
+                    status: 404,
+                    message: `Task not found`
+                })
+            }
+        }).catch(next);
+    }
+
+    static isListAuthorized(req, res, next) {
+        let ListId = +req.params.ListId;
+
         List.findByPk(ListId).then(list => {
             if (list) {
-                Task.findAll({
-                    where: {
-                        ListId: list.id,
-                        id: TaskId
-                    }
-                }).then(task => {
-                    if (task) {
-                        if (task.UserId === req.loginId) {
-                            next();
-                        } else {
-                            next({
-                                status: 401,
-                                message: `You are not authorized`
-                            })
-                        }
-                    } else {
-                        next();
-                    }
-                }).catch(next);
-
+                next()
             } else {
                 next({
                     status: 404,

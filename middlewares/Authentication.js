@@ -6,7 +6,7 @@ const { User } = require('../models')
 
 class Authentication {
     static isAuthentic(req, res, next) {
-        const token = req.header.access_token;
+        const token = req.headers.access_token;
         const decoded = verifyToken(token);
         const { id } = decoded;
         try {
@@ -21,7 +21,6 @@ class Authentication {
                     })
                 }
             })
-
         } catch (err) {
             next(err);
         }
